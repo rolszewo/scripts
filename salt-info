@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+if [ -t 1 ]; then
+    GREEN='\033[32m'
+    NC='\033[0m'
+else
+    GREEN=''
+    NC=''
+fi
+
+echo
+echo -e "${GREEN}GPG public key:${NC}"
+export GNUPGHOME=/etc/salt/secrets/gpg
+KEYID=$(gpg --list-keys --keyid-format SHORT --with-colons 2>/dev/null | awk -F: '
+  /^pub/ {id=$5}
+  /^uid/ {
+    email=$10
+    gsub(/.*</, "", email)
+    gsub(/>.*/, "", email)
+    print id
+  }
+')
+gpg --list-keys --keyid-format SHORT --with-colons ${KEYID} 2>/dev/null | awk -F: '
+  /^pub/ {id=$5}
+  /^uid/ {
+    email=$10
+    gsub(/.*</, "", email)
+    gsub(/>.*/, "", email)
+    print id, "             ", email
+  }
+'
+echo
+gpg --armor --export ${KEYID} 2>/dev/null
+echo
+echo -e "${GREEN}SSH public key for salt-states  repo:${NC}"
+cat /etc/salt/secrets/ssh/salt-states.pub
+echo
+echo -e "${GREEN}SSH public key for salt-pillars repo:${NC}"
+cat /etc/salt/secrets/ssh/salt-pillars.pub
+echo
+

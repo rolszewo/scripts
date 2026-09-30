@@ -1,0 +1,8 @@
+# mailtest.sh Konfiguration — Klartext, sourcebar (z.B. `source .mailtest.conf`)
+# Erzeugt: 2026-09-30 00:00:00 UTC
+# Bearbeite diese Datei NICHT manuell — sie wird vom Script verwaltet.
+# Passwort wird HIER NICHT gespeichert (siehe MAILTEST_PASS ENV-Variable).
+export MAILTEST_SERVER="mail-relay.domain.de"
+export MAILTEST_PORT="25"
+export MAILTEST_FROM="sender@domain.de"
+export MAILTEST_USER="authuser"

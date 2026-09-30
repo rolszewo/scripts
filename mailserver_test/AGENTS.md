@@ -37,6 +37,7 @@ inline script comments).
 ## Verification
 
 No test suite. After editing `mailtest.sh`:
+
 1. `bash -n mailtest.sh` (syntax check)
 2. Exercise both interactive and fully-automated (env-var) code paths,
    especially `load_config`/`save_config` and any `set -e`-sensitive
